@@ -1,20 +1,20 @@
 const mongoose = require("mongoose");
 
-const questionSchema = new mongoose.Schema(
+const responseSchema = new mongoose.Schema(
   {
-    question: {
+    response: {
       type: String,
       required: true,
       minlength: 2,
       maxlength: 400,
     },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-    response: { type: mongoose.Schema.Types.ObjectId, ref: "responses" },
+    question: { type: mongoose.Schema.Types.ObjectId, ref: "questions" },
   },
   {
     timestamps: true,
   }
 );
 
-const model = mongoose.model("questions", questionSchema);
+const model = mongoose.model("responses", responseSchema);
 module.exports = model;
