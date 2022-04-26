@@ -6,7 +6,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 10,
+      minlength: 2,
+      maxlength: 100,
+    },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 2,
       maxlength: 100,
     },
     city: {
@@ -27,6 +34,8 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true,
       trim: true,
+      minlength: 10,
+      maxlength: 10,
     },
     email: {
       type: String,
