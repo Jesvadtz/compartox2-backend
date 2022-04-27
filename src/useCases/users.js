@@ -44,8 +44,8 @@ async function login(email, password) {
 
   return jwt.sign({ id: userFound._id });
 }
-function updateUser(dataUser, userId) {
-  return User.findByIdAndUpdate(dataUser, userId), { new: true };
+function updateUser(userId, dataUser) {
+  return User.findByIdAndUpdate(userId, dataUser, { new: true });
 }
 function deleteUser(userId) {
   return User.findByIdAndDelete(userId);

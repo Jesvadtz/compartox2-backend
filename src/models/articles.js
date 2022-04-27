@@ -12,7 +12,7 @@ const articleSchema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ["Material", "libro"],
+      enum: ["Material", "Libro"],
       default: "Material",
     },
     description: {
@@ -53,8 +53,18 @@ const articleSchema = new mongoose.Schema(
       minlength: 4,
       maxlength: 50,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-    questions: { type: mongoose.Schema.Types.ObjectId, ref: "questions" },
+    user: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+      },
+    ],
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "questions",
+      },
+    ],
   },
   {
     timestamps: true,
