@@ -46,8 +46,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    articles: { type: mongoose.Schema.Types.ObjectId, ref: "articles" },
-    favorites: { type: mongoose.Schema.Types.ObjectId, ref: "favorites" },
+    articles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "articles",
+      },
+    ],
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "favorites",
+      },
+    ],
   },
   {
     timestamps: true,
