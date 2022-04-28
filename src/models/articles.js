@@ -53,12 +53,10 @@ const articleSchema = new mongoose.Schema(
       minlength: 4,
       maxlength: 50,
     },
-    user: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-      },
-    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
     questions: [
       {
         type: mongoose.Schema.Types.ObjectId,

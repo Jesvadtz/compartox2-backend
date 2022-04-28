@@ -8,7 +8,6 @@ const responseSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 400,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
     question: { type: mongoose.Schema.Types.ObjectId, ref: "questions" },
   },
   {

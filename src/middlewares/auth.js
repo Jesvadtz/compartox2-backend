@@ -7,6 +7,8 @@ function auth(request, response, next) {
     const validToken = jwt.verify(token);
     console.log("Valid token: ", validToken);
 
+    request.validToken = validToken;
+
     if (!validToken) throw new Error("You don't authorized");
     next();
   } catch (error) {
