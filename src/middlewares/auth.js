@@ -3,9 +3,7 @@ const jwt = require("../lib/jwt");
 function auth(request, response, next) {
   try {
     const { authorization: token } = request.headers;
-    console.log("token: ", token);
     const validToken = jwt.verify(token);
-    console.log("Valid token: ", validToken);
 
     request.validToken = validToken;
 

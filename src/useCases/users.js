@@ -3,8 +3,20 @@ const jwt = require("../lib/jwt");
 const User = require("../models/users");
 
 function getUser(userId) {
-  return User.findById(userId).populate("articles");
+  return User.findById(userId)
+    .populate("articles", {
+      name: 1,
+      price: 1,
+      description: 1,
+    })
+    .populate("favorites", {
+      name: 1,
+      price: 1,
+      description: 1,
+    })
+    .sort({ createdAt: "desc" });
 }
+
 function getAllUsers() {
   return User.find({})
     .populate("articles", {
@@ -12,8 +24,14 @@ function getAllUsers() {
       price: 1,
       description: 1,
     })
+    .populate("favorites", {
+      name: 1,
+      price: 1,
+      description: 1,
+    })
     .sort({ createdAt: "desc" });
 }
+
 async function signUp(dataUser) {
   const { name, lastname, city, state, number, email, password } = dataUser;
   const userFound = await User.findOne({ email });
@@ -31,6 +49,7 @@ async function signUp(dataUser) {
     password: passwordEncrypted,
   });
 }
+
 async function login(email, password) {
   const userFound = await User.findOne({ email });
   if (!userFound) throw new Error("The email not found");
@@ -40,12 +59,15 @@ async function login(email, password) {
 
   return jwt.sign({ id: userFound._id, username: userFound.name });
 }
+
 function updateUser(userId, dataUser) {
   return User.findByIdAndUpdate(userId, dataUser, { new: true });
 }
+
 function deleteUser(userId) {
   return User.findByIdAndDelete(userId);
 }
+
 module.exports = {
   getAllUsers,
   getUser,

@@ -91,6 +91,12 @@ router.patch("/:userId", async (request, response) => {
   try {
     const userId = request.params.userId;
     const dataUser = request.body;
+    const userToken = request.validToken;
+
+    if (userId != userToken.id) {
+      throw new Error("You don't have authorization to modify this");
+    }
+
     const userUpdate = await usesCasesUsers.updateUser(userId, dataUser, {
       new: true,
     });
@@ -117,6 +123,11 @@ router.delete("/:userId", async (request, response) => {
   try {
     const userId = request.params.userId;
     const userDeleted = await usesCasesUsers.deleteUser(userId);
+    const userToken = request.validToken;
+
+    if (userId != userToken.id) {
+      throw new Error("You don't have authorization to modify this");
+    }
 
     if (!userDeleted) throw new Error("User not found");
 

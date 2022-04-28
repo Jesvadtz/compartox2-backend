@@ -1,4 +1,3 @@
-const Article = require("../models/articles");
 const User = require("../models/users");
 
 async function getUserFavorites(userId) {
@@ -12,7 +11,7 @@ async function createFavorite(articleId, userId) {
   const favorite = articleId;
   const user = await User.findById(userId);
 
-  user.favorites = user.favorites.concat(favorite);
+  user.favorites.addToSet(favorite);
   await user.save();
 }
 

@@ -13,11 +13,9 @@ function getResponse(responseId) {
 
 async function createResponse(dataResponse, questionId, userId) {
   const { response } = dataResponse;
-
   const question = await Question.findById(questionId).populate("article", {
     user: 1,
   });
-
   const seller = question.article.user.toString();
 
   if (userId !== seller) {

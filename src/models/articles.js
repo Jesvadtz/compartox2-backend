@@ -34,21 +34,12 @@ const articleSchema = new mongoose.Schema(
     },
     author: {
       type: String,
-      required: true,
-      trim: true,
-      minlength: 4,
-      maxlength: 100,
-    },
-    title: {
-      type: String,
-      required: true,
       trim: true,
       minlength: 4,
       maxlength: 100,
     },
     editorial: {
       type: String,
-      required: true,
       trim: true,
       minlength: 4,
       maxlength: 50,
