@@ -8,8 +8,18 @@ const questionSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 400,
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-    response: { type: mongoose.Schema.Types.ObjectId, ref: "responses" },
+    article: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "articles",
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+    response: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "responses",
+    },
   },
   {
     timestamps: true,

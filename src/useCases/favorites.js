@@ -1,18 +1,26 @@
-const Favorite = require("../models/favorites");
+const Article = require("../models/articles");
+const User = require("../models/users");
 
-function getAllFavorites() {
-  return Favorite.find({}).populate("article", {
-    name: 1,
-    price: 1,
-    images: 1,
-    description: 1,
-  });
-}
-function createFavorite(articleId) {
-  return Favorite.create({ article: articleId });
-}
-function deleteFavorite(articleId) {
-  return Favorite.findByIdAndDelete(articleId);
+async function getUserFavorites(userId) {
+  const user = await User.findById(userId);
+  const favorites = user.favorites;
+
+  return favorites;
 }
 
-module.exports = { getAllFavorites, createFavorite, deleteFavorite };
+async function createFavorite(articleId, userId) {
+  const favorite = articleId;
+  const user = await User.findById(userId);
+
+  user.favorites = user.favorites.concat(favorite);
+  await user.save();
+}
+
+async function deleteFavorite(articleId, userId) {
+  const user = await User.findById(userId);
+  user.favorites.pull(articleId);
+
+  await user.save();
+}
+
+module.exports = { getUserFavorites, createFavorite, deleteFavorite };
