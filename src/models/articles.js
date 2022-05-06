@@ -27,11 +27,7 @@ const articleSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    images: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    images: [{ type: String }],
     author: {
       type: String,
       trim: true,

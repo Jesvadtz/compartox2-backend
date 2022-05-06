@@ -1,6 +1,8 @@
 const express = require("express");
 const useCasesArticles = require("../useCases/articles");
 const auth = require("../middlewares/auth");
+const upload = require("../lib/upload-images");
+const multiUploader = upload.array("image");
 
 const router = express.Router({ mergeParams: true });
 
@@ -48,17 +50,21 @@ router.get("/:articleId", async (request, response) => {
 
 router.use(auth);
 
-router.post("/", async (request, response) => {
+router.post("/", multiUploader, async (request, response) => {
   try {
     const dataArticle = request.body;
-    const userId = request.params.userId;
+    const userId = request.validToken.id;
+    const files = request.files;
+    console.log("dataArticle", dataArticle);
+    console.log("userId", userId);
+    console.log("files", files);
 
     if (!userId || !dataArticle) {
       throw new Error("You need data");
     }
 
     const newArticle = await useCasesArticles.createArticle(
-      dataArticle,
+      { ...dataArticle, images: files.map((file) => file.location) },
       userId
     );
     response.json({
