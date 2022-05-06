@@ -4,21 +4,21 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 
 AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
+  accessKeyId: process.env.ACCESS_KEY_ID_AWS,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY_AWS,
+  region: process.env.REGION_AWS,
 });
 
 const s3Config = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-  Bucket: process.env.AWS_BUCKET_NAME,
+  accessKeyId: process.env.ACCESS_KEY_ID_AWS,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY_AWS,
+  region: process.env.REGION_AWS,
+  Bucket: process.env.BUCKET_NAME_AWS,
 });
 
 const multerS3Config = multerS3({
   s3: s3Config,
-  bucket: process.env.AWS_BUCKET_NAME,
+  bucket: process.env.BUCKET_NAME_AWS,
   acl: "public-read",
   metadata: function (req, file, cb) {
     cb(null, { fieldName: file.fieldname });
