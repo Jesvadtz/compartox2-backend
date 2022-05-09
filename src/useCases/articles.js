@@ -8,13 +8,22 @@ function getArticle(articleId) {
       lastname: 1,
       city: 1,
       state: 1,
+      number: 1,
+      email: 1,
     })
     .populate("questions", { question: 1, user: 1 });
 }
 
 function getAllArticles() {
   return Article.find({})
-    .populate("user", { name: 1, lastname: 1, city: 1, state: 1 })
+    .populate("user", {
+      name: 1,
+      lastname: 1,
+      city: 1,
+      state: 1,
+      number: 1,
+      email: 1,
+    })
     .sort({ createdAt: "desc" });
 }
 
