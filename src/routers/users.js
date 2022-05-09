@@ -23,6 +23,30 @@ router.get("/", async (request, response) => {
     });
   }
 });
+
+router.get("/me", auth, async (request, response) => {
+  try {
+    const userId = request.user.id;
+    console.log("userId", userId);
+    const userFound = await usesCasesUsers.getUser(userId);
+
+    response.json({
+      success: true,
+      message: "User found successfully",
+      data: {
+        user: userFound,
+      },
+    });
+  } catch (error) {
+    response.status(404);
+    response.json({
+      success: false,
+      message: "The user not found",
+      error: error.message,
+    });
+  }
+});
+
 router.get("/:userId", async (request, response) => {
   try {
     const userId = request.params.userId;
@@ -73,7 +97,7 @@ router.post("/login", async (request, response) => {
       success: true,
       message: "User logged in",
       data: {
-        token: token,
+        token,
       },
     });
   } catch (error) {
