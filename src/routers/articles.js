@@ -8,15 +8,30 @@ const router = express.Router({ mergeParams: true });
 
 router.get("/", async (request, response) => {
   try {
-    const allArticles = await useCasesArticles.getAllArticles();
+    const search = request.query.q;
+    if (search) {
+      const searchArticles = await useCasesArticles.searchArticles(
+        decodeURI(search)
+      );
 
-    response.json({
-      success: true,
-      message: "All Articles",
-      data: {
-        articles: allArticles,
-      },
-    });
+      response.json({
+        success: true,
+        message: "Articles searched",
+        data: {
+          articles: searchArticles,
+        },
+      });
+    } else {
+      const allArticles = await useCasesArticles.getAllArticles();
+
+      response.json({
+        success: true,
+        message: "All Articles",
+        data: {
+          articles: allArticles,
+        },
+      });
+    }
   } catch (error) {
     response.status(400);
     response.json({

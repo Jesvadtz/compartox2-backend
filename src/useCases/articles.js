@@ -1,3 +1,4 @@
+const { request } = require("express");
 const Article = require("../models/articles");
 const User = require("../models/users");
 
@@ -25,6 +26,18 @@ function getAllArticles() {
       email: 1,
     })
     .sort({ createdAt: "desc" });
+}
+
+function searchArticles(search) {
+  // return Article.find({ name: { $regex: /fuego/i } })
+  return Article.find({ $text: { $search: search } }).populate("user", {
+    name: 1,
+    lastname: 1,
+    city: 1,
+    state: 1,
+    number: 1,
+    email: 1,
+  });
 }
 
 async function createArticle(dataArticle, userId) {
@@ -62,6 +75,7 @@ function deleteArticle(articleId) {
 module.exports = {
   getArticle,
   getAllArticles,
+  searchArticles,
   createArticle,
   updateArticle,
   deleteArticle,
