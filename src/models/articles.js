@@ -8,6 +8,7 @@ const articleSchema = new mongoose.Schema(
       trim: true,
       minlength: 4,
       maxlength: 50,
+      index: true,
     },
     type: {
       type: String,
@@ -21,6 +22,7 @@ const articleSchema = new mongoose.Schema(
       minlength: 4,
       maxlength: 400,
       trim: true,
+      index: true,
     },
     price: {
       type: Number,
@@ -33,6 +35,7 @@ const articleSchema = new mongoose.Schema(
       trim: true,
       minlength: 4,
       maxlength: 100,
+      index: true,
     },
     editorial: {
       type: String,
@@ -55,6 +58,8 @@ const articleSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+articleSchema.index({ name: "text", description: "text", autor: "text" });
 
 const model = mongoose.model("articles", articleSchema);
 module.exports = model;
