@@ -29,7 +29,7 @@ router.post("/", async (request, response) => {
   try {
     const userId = request.params.userId;
     const articleId = request.body.articleId;
-    const newFavorite = await useCasesFavorites.createFavorite(
+    const newFavorites = await useCasesFavorites.createFavorite(
       articleId,
       userId
     );
@@ -38,7 +38,7 @@ router.post("/", async (request, response) => {
       success: true,
       message: "The favorite was created successfully",
       data: {
-        favorite: newFavorite,
+        favorites: newFavorites,
       },
     });
   } catch (error) {
@@ -50,10 +50,10 @@ router.post("/", async (request, response) => {
   }
 });
 
-router.delete("/:articleId", async (request, response) => {
+router.delete("/", async (request, response) => {
   try {
     const userId = request.params.userId;
-    const articleId = request.params.articleId;
+    const articleId = request.body.articleId;
     const favoriteDeleted = await useCasesFavorites.deleteFavorite(
       articleId,
       userId
@@ -63,7 +63,7 @@ router.delete("/:articleId", async (request, response) => {
       success: true,
       message: "The favorite was deleted",
       data: {
-        favorite: favoriteDeleted,
+        favorites: favoriteDeleted,
       },
     });
   } catch (error) {

@@ -13,6 +13,7 @@ async function createFavorite(articleId, userId) {
 
   user.favorites.addToSet(favorite);
   await user.save();
+  return user.favorites;
 }
 
 async function deleteFavorite(articleId, userId) {
@@ -20,6 +21,7 @@ async function deleteFavorite(articleId, userId) {
   user.favorites.pull(articleId);
 
   await user.save();
+  return user.favorites;
 }
 
 module.exports = { getUserFavorites, createFavorite, deleteFavorite };
