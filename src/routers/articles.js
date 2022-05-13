@@ -98,10 +98,12 @@ router.post("/", multiUploader, async (request, response) => {
     });
   }
 });
-router.patch("/:articleId", async (request, response) => {
+router.patch("/:articleId", multiUploader, async (request, response) => {
   try {
     const articleId = request.params.articleId;
     const dataToUpdate = request.body;
+
+    console.log("dataToUpdate", dataToUpdate);
     const articleUpdate = await useCasesArticles.updateArticle(
       articleId,
       dataToUpdate
